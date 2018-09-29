@@ -21,9 +21,14 @@
         <threads>1</threads>
         <browser>firefox</browser>
         <headless>true</headless>
+        <remote>false</remote>
+        <gridURL/>
+        <gridPlatform/>
+        <gridBrowserVersion/>
 
         <!-- Dependency versions -->
 
+        <java.version>1.8</java.version>
         <testng.version>6.14.3</testng.version>
         <selenium.version>3.14.0</selenium.version>
         <assertj.version>3.11.1</assertj.version>
@@ -75,6 +80,16 @@
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.8.0</version>
+                        <configuration>
+                            <source>${java.version}</source>
+                            <target>${java.version}</target>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.22.0</version>
                         <configuration>
@@ -91,6 +106,10 @@
                             <systemPropertyVariables>
                                 <browser>${browser}</browser>
                                 <headless>${headless}</headless>
+                                <remote>${remote}</remote>
+                                <gridURL>${gridURL}</gridURL>
+                                <gridPlatform>${gridPlatform}</gridPlatform>
+                                <gridBrowserVersion>${gridBrowserVersion}</gridBrowserVersion>
                             </systemPropertyVariables>
                             <includes>
                                 <include>**/*Test.java</include>
