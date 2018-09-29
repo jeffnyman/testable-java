@@ -25,6 +25,7 @@
         <gridURL/>
         <gridPlatform/>
         <gridBrowserVersion/>
+        <screenshotDirectory>${project.build.directory}/screenshots</screenshotDirectory>
 
         <!-- Dependency versions -->
 
@@ -77,6 +78,7 @@
             </dependencies>
 
             <build>
+                <finalName>${project.artifactId}</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -110,6 +112,7 @@
                                 <gridURL>${gridURL}</gridURL>
                                 <gridPlatform>${gridPlatform}</gridPlatform>
                                 <gridBrowserVersion>${gridBrowserVersion}</gridBrowserVersion>
+                                <screenshotDirectory>${screenshotDirectory}</screenshotDirectory>
                             </systemPropertyVariables>
                             <includes>
                                 <include>**/*Test.java</include>

@@ -1,15 +1,18 @@
 package com.testerstories;
 
 import com.testerstories.config.DriverFactory;
+import com.testerstories.listeners.ScreenshotListener;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Listeners(ScreenshotListener.class)
 public class DriverBase {
     private static List<DriverFactory> threadPool = Collections.synchronizedList(new ArrayList<DriverFactory>());
     private static ThreadLocal<DriverFactory> driverThread;
@@ -26,7 +29,7 @@ public class DriverBase {
         };
     }
 
-    static RemoteWebDriver getDriver() {
+    public static RemoteWebDriver getDriver() {
         return driverThread.get().getDriver();
     }
 
