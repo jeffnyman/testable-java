@@ -22,15 +22,11 @@ public class BasicTest extends DriverBase {
         WebDriverWait wait = new WebDriverWait(driver, 10, 500);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("site-image")));
 
-        assertThat(HomePage.siteLogo).isNotNull();
-
         WebElement openLogin = driver.findElement(Authentication.openLogin);
         openLogin.click();
 
-        wait = new WebDriverWait(driver, 10, 500);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-
         WebElement username = driver.findElement(Authentication.username);
+        wait.until(ExpectedConditions.visibilityOf(username));
         username.sendKeys(user);
 
         WebElement password = driver.findElement(Authentication.password);
@@ -39,9 +35,7 @@ public class BasicTest extends DriverBase {
         WebElement login = driver.findElement(Authentication.login);
         login.submit();
 
-        wait = new WebDriverWait(driver, 10, 500);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("notice")));
-
         WebElement notice = driver.findElement(LandingPage.notice);
 
         assertThat(notice.getText()).isEqualTo("You are now logged in as " + user + ".");
@@ -54,8 +48,10 @@ public class BasicTest extends DriverBase {
         openLogin.click();
 
         WebElement logout = driver.findElement(Authentication.logout);
-
         logout.click();
+
+        WebElement notice = driver.findElement(HomePage.notice);
+        assertThat(notice.getText()).isEqualTo("You have been logged out.");
     }
 
     @Test
