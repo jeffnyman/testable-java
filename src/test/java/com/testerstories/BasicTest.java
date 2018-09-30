@@ -3,11 +3,7 @@ package com.testerstories;
 import com.testerstories.pages.Authentication;
 import com.testerstories.pages.HomePage;
 import com.testerstories.pages.LandingPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -19,39 +15,19 @@ public class BasicTest extends DriverBase {
 
         driver.get("https://veilus.herokuapp.com");
 
-        WebDriverWait wait = new WebDriverWait(driver, 10, 500);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("site-image")));
+        Authentication.login_as(user, pass, driver);
 
-        WebElement openLogin = driver.findElement(Authentication.openLogin);
-        openLogin.click();
-
-        WebElement username = driver.findElement(Authentication.username);
-        wait.until(ExpectedConditions.visibilityOf(username));
-        username.sendKeys(user);
-
-        WebElement password = driver.findElement(Authentication.password);
-        password.sendKeys(pass);
-
-        WebElement login = driver.findElement(Authentication.login);
-        login.submit();
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("notice")));
-        WebElement notice = driver.findElement(LandingPage.notice);
-
-        assertThat(notice.getText()).isEqualTo("You are now logged in as " + user + ".");
+        String loggedIn = LandingPage.confirmLogin(driver);
+        assertThat(loggedIn).isEqualTo("You are now logged in as " + user + ".");
     }
 
     private void logout() {
         WebDriver driver = DriverBase.getDriver();
 
-        WebElement openLogin = driver.findElement(Authentication.openLogin);
-        openLogin.click();
+        Authentication.logout(driver);
 
-        WebElement logout = driver.findElement(Authentication.logout);
-        logout.click();
-
-        WebElement notice = driver.findElement(HomePage.notice);
-        assertThat(notice.getText()).isEqualTo("You have been logged out.");
+        String loggedOut = HomePage.confirmLogout(driver);
+        assertThat(loggedOut).isEqualTo("You have been logged out.");
     }
 
     @Test
