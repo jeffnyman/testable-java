@@ -1,6 +1,6 @@
 package com.testerstories.pages;
 
-import org.openqa.selenium.WebDriver;
+import com.testerstories.DriverBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -23,12 +23,12 @@ public class Authentication {
     @FindBy(linkText = "Logout")
     private WebElement logoutButton;
 
-    public Authentication(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+    public Authentication() {
+        PageFactory.initElements(DriverBase.getDriver(), this);
     }
 
-    public void login_as(String user, String pass, WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, 10, 500);
+    public void login_as(String user, String pass) {
+        WebDriverWait wait = new WebDriverWait(DriverBase.getDriver(), 10, 500);
 
         openLogin.click();
 
@@ -39,12 +39,13 @@ public class Authentication {
         loginButton.submit();
     }
 
-    public void logout(WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, 10, 500);
+    public void logout() {
+        WebDriverWait wait = new WebDriverWait(DriverBase.getDriver(), 10, 500);
 
         openLogin.click();
 
         wait.until(ExpectedConditions.visibilityOf(logoutButton));
+        wait.until(ExpectedConditions.elementToBeClickable(logoutButton));
 
         logoutButton.click();
     }

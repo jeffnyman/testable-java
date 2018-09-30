@@ -1,6 +1,6 @@
 package com.testerstories.pages;
 
-import org.openqa.selenium.WebDriver;
+import com.testerstories.DriverBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,12 +11,12 @@ public class LandingPage {
     @FindBy(className = "notice")
     private WebElement notice;
 
-    public LandingPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+    public LandingPage() {
+        PageFactory.initElements(DriverBase.getDriver(), this);
     }
 
-    public String confirmLogin(WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, 10, 500);
+    public String confirmLogin() {
+        WebDriverWait wait = new WebDriverWait(DriverBase.getDriver(), 10, 500);
         wait.until(ExpectedConditions.visibilityOf(notice));
         return notice.getText();
     }
