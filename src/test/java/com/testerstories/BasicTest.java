@@ -1,5 +1,8 @@
 package com.testerstories;
 
+import com.testerstories.pages.Authentication;
+import com.testerstories.pages.HomePage;
+import com.testerstories.pages.LandingPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,25 +19,30 @@ public class BasicTest extends DriverBase {
 
         driver.get("https://veilus.herokuapp.com");
 
-        WebElement openLogin = driver.findElement(By.id("open"));
+        WebDriverWait wait = new WebDriverWait(driver, 10, 500);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("site-image")));
+
+        assertThat(HomePage.siteLogo).isNotNull();
+
+        WebElement openLogin = driver.findElement(Authentication.openLogin);
         openLogin.click();
 
-        WebDriverWait wait = new WebDriverWait(driver, 10, 500);
+        wait = new WebDriverWait(driver, 10, 500);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
 
-        WebElement username = driver.findElement(By.id("username"));
+        WebElement username = driver.findElement(Authentication.username);
         username.sendKeys(user);
 
-        WebElement password = driver.findElement(By.id("password"));
+        WebElement password = driver.findElement(Authentication.password);
         password.sendKeys(pass);
 
-        WebElement login = driver.findElement(By.id("login-button"));
+        WebElement login = driver.findElement(Authentication.login);
         login.submit();
 
         wait = new WebDriverWait(driver, 10, 500);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("notice")));
 
-        WebElement notice = driver.findElement(By.className("notice"));
+        WebElement notice = driver.findElement(LandingPage.notice);
 
         assertThat(notice.getText()).isEqualTo("You are now logged in as " + user + ".");
     }
@@ -42,10 +50,11 @@ public class BasicTest extends DriverBase {
     private void logout() {
         WebDriver driver = DriverBase.getDriver();
 
-        WebElement openLogin = driver.findElement(By.id("open"));
+        WebElement openLogin = driver.findElement(Authentication.openLogin);
         openLogin.click();
 
-        WebElement logout = driver.findElement(By.linkText("Logout"));
+        WebElement logout = driver.findElement(Authentication.logout);
+
         logout.click();
     }
 
