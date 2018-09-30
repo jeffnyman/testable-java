@@ -1,36 +1,51 @@
 package com.testerstories.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Authentication {
-    private static By openLogin = By.id("open");
-    private static By username = By.id("username");
-    private static By password = By.id("password");
-    private static By login = By.id("login-button");
-    private static By logOut = By.linkText("Logout");
+    @FindBy(id = "open")
+    private WebElement openLogin;
 
-    public static void login_as(String user, String pass, WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, 10, 500);
+    @FindBy(id = "username")
+    private WebElement username;
 
-        driver.findElement(openLogin).click();
+    @FindBy(id = "password")
+    private WebElement password;
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(username));
+    @FindBy(id = "login-button")
+    private WebElement loginButton;
 
-        driver.findElement(username).sendKeys(user);
-        driver.findElement(password).sendKeys(pass);
-        driver.findElement(login).submit();
+    @FindBy(linkText = "Logout")
+    private WebElement logoutButton;
+
+    public Authentication(WebDriver driver) {
+        PageFactory.initElements(driver, this);
     }
 
-    public static void logout(WebDriver driver) {
+    public void login_as(String user, String pass, WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, 10, 500);
 
-        driver.findElement(openLogin).click();
+        openLogin.click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(logOut));
+        wait.until(ExpectedConditions.visibilityOf(username));
 
-        driver.findElement(logOut).click();
+        username.sendKeys(user);
+        password.sendKeys(pass);
+        loginButton.submit();
+    }
+
+    public void logout(WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, 10, 500);
+
+        openLogin.click();
+
+        wait.until(ExpectedConditions.visibilityOf(logoutButton));
+
+        logoutButton.click();
     }
 }

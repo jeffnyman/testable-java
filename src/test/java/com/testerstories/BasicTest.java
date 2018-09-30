@@ -15,18 +15,22 @@ public class BasicTest extends DriverBase {
 
         driver.get("https://veilus.herokuapp.com");
 
-        Authentication.login_as(user, pass, driver);
+        Authentication authentication = new Authentication(driver);
+        authentication.login_as(user, pass, driver);
 
-        String loggedIn = LandingPage.confirmLogin(driver);
+        LandingPage landingPage = new LandingPage(driver);
+        String loggedIn = landingPage.confirmLogin(driver);
         assertThat(loggedIn).isEqualTo("You are now logged in as " + user + ".");
     }
 
     private void logout() {
         WebDriver driver = DriverBase.getDriver();
 
-        Authentication.logout(driver);
+        Authentication authentication = new Authentication(driver);
+        authentication.logout(driver);
 
-        String loggedOut = HomePage.confirmLogout(driver);
+        HomePage homePage = new HomePage(driver);
+        String loggedOut = homePage.confirmLogout(driver);
         assertThat(loggedOut).isEqualTo("You have been logged out.");
     }
 
