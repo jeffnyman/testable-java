@@ -1,26 +1,18 @@
 package com.testerstories.pages;
 
 import com.testerstories.DriverBase;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.testerstories.helpers.Element;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class HomePage {
-    @FindBy(id = "site-image")
-    private WebElement siteLogo;
-
-    @FindBy(className = "notice")
-    private WebElement notice;
-
-    public HomePage() {
-        PageFactory.initElements(DriverBase.getDriver(), this);
-    }
+public class HomePage extends BasePage {
+    private Element siteLogo = new Element(By.id("site-image"), driver);
+    private Element notice = new Element(By.className("notice"), driver);
 
     public String confirmLogout() {
         WebDriverWait wait = new WebDriverWait(DriverBase.getDriver(), 10, 500);
-        wait.until(ExpectedConditions.visibilityOf(notice));
-        return notice.getText();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(notice.locator()));
+        return notice.locate().getText();
     }
 }

@@ -31,8 +31,6 @@ public class DriverFactory {
     }
 
     public RemoteWebDriver getDriver() {
-        System.out.println("Current thread: " + Thread.currentThread().getId());
-
         if (driver == null) {
             establishDriver(selectedDriver);
         }
