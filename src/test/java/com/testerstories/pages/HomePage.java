@@ -1,10 +1,7 @@
 package com.testerstories.pages;
 
-import com.testerstories.DriverBase;
 import com.testerstories.helpers.Element;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage extends BasePage {
     private Element siteLogo = new Element(By.id("site-image"), driver);
@@ -15,8 +12,7 @@ public class HomePage extends BasePage {
     }
 
     public String confirmLogout() {
-        WebDriverWait wait = new WebDriverWait(DriverBase.getDriver(), 10, 500);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(notice.locator()));
+        selenium.waitForPresent(notice.locator());
         return notice.locate().getText();
     }
 }

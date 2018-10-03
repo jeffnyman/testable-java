@@ -1,10 +1,7 @@
 package com.testerstories.pages;
 
-import com.testerstories.DriverBase;
 import com.testerstories.helpers.Element;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Authentication extends BasePage {
     private Element openLogin = new Element(By.id("open"), driver);
@@ -14,11 +11,9 @@ public class Authentication extends BasePage {
     private Element logoutButton = new Element(By.linkText("Logout"), driver);
 
     public void login_as(String user, String pass) {
-        WebDriverWait wait = new WebDriverWait(DriverBase.getDriver(), 10, 500);
-
         openLogin.locate().click();
 
-        wait.until(ExpectedConditions.visibilityOf(username.locate()));
+        selenium.waitForPresent(username.locator());
 
         username.locate().sendKeys(user);
         password.locate().sendKeys(pass);
@@ -26,11 +21,11 @@ public class Authentication extends BasePage {
     }
 
     public void logout() {
-        WebDriverWait wait = new WebDriverWait(DriverBase.getDriver(), 10, 500);
+        selenium.waitForReady(openLogin.locator());
 
         openLogin.locate().click();
 
-        wait.until(ExpectedConditions.elementToBeClickable(logoutButton.locator()));
+        selenium.waitForReady(logoutButton.locator());
 
         logoutButton.locate().click();
     }
