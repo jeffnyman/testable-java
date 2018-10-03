@@ -10,6 +10,10 @@ public class HomePage extends BasePage {
     private Element siteLogo = new Element(By.id("site-image"), driver);
     private Element notice = new Element(By.className("notice"), driver);
 
+    public boolean siteLogoDisplayed() {
+        return siteLogo.locateAll().size() == 1;
+    }
+
     public String confirmLogout() {
         WebDriverWait wait = new WebDriverWait(DriverBase.getDriver(), 10, 500);
         wait.until(ExpectedConditions.visibilityOfElementLocated(notice.locator()));

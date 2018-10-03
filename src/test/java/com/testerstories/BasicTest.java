@@ -15,6 +15,9 @@ public class BasicTest extends DriverBase {
 
         driver.get("https://veilus.herokuapp.com");
 
+        HomePage homePage = new HomePage();
+        assertThat(homePage.siteLogoDisplayed()).isEqualTo(true);
+
         Authentication authentication = new Authentication();
         authentication.login_as(user, pass);
 

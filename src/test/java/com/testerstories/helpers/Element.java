@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.util.List;
+
 public class Element {
     private RemoteWebDriver driver;
     private final By defaultLocator;
@@ -28,6 +30,17 @@ public class Element {
      */
     public WebElement locate() {
         return driver.findElement(locator());
+    }
+
+    /**
+     * Returns a list of WebElement objects if valid WebElements could be
+     * found with the supplier locator. The list returned can be empty
+     * if the provided locator returns no elements.
+     *
+     * @return List of WebElement
+     */
+    public List<WebElement> locateAll() {
+        return driver.findElements(locator());
     }
 
     /**
