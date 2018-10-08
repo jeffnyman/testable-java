@@ -7,6 +7,8 @@ public class HomePage extends BasePage {
     private Element siteLogo = new Element(By.id("site-image"), driver);
     private Element notice = new Element(By.className("notice"), driver);
 
+    public Authentication authentication = new Authentication();
+
     public boolean siteLogoDisplayed() {
         return siteLogo.locateAll().size() == 1;
     }

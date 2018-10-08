@@ -1,6 +1,5 @@
 package com.testerstories;
 
-import com.testerstories.pages.Authentication;
 import com.testerstories.pages.HomePage;
 import com.testerstories.pages.LandingPage;
 import org.openqa.selenium.WebDriver;
@@ -18,8 +17,7 @@ public class BasicTest extends DriverBase {
         HomePage homePage = new HomePage();
         assertThat(homePage.siteLogoDisplayed()).isEqualTo(true);
 
-        Authentication authentication = new Authentication();
-        authentication.login_as(user, pass);
+        homePage.authentication.login_as(user, pass);
 
         LandingPage landingPage = new LandingPage();
         String loggedIn = landingPage.confirmLogin();
@@ -27,8 +25,8 @@ public class BasicTest extends DriverBase {
     }
 
     private void logout() {
-        Authentication authentication = new Authentication();
-        authentication.logout();
+        LandingPage landingPage = new LandingPage();
+        landingPage.authentication.logout();
 
         HomePage homePage = new HomePage();
         String loggedOut = homePage.confirmLogout();
