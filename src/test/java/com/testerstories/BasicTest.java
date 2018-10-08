@@ -1,5 +1,6 @@
 package com.testerstories;
 
+import com.testerstories.pages.Authentication;
 import com.testerstories.pages.HomePage;
 import com.testerstories.pages.LandingPage;
 import org.openqa.selenium.WebDriver;
@@ -39,6 +40,18 @@ public class BasicTest extends DriverBase {
     @Test
     public void login_as_tester() {
         login("tester", "testing");
+    }
+
+    @Test
+    public void login_fluently() {
+        WebDriver driver = DriverBase.getDriver();
+
+        driver.get("https://veilus.herokuapp.com");
+
+        authentication = new Authentication();
+        authentication.enterUsername("admin")
+                .enterPassword("admin")
+                .andLogin();
     }
 
     @AfterMethod

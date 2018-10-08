@@ -2,6 +2,7 @@ package com.testerstories;
 
 import com.testerstories.config.DriverFactory;
 import com.testerstories.listeners.ScreenshotListener;
+import com.testerstories.pages.Authentication;
 import com.testerstories.pages.HomePage;
 import com.testerstories.pages.LandingPage;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -19,6 +20,7 @@ public class DriverBase {
     private static List<DriverFactory> threadPool = Collections.synchronizedList(new ArrayList<DriverFactory>());
     private static ThreadLocal<DriverFactory> driverThread;
 
+    Authentication authentication;
     HomePage homePage;
     LandingPage landingPage;
 
