@@ -10,7 +10,7 @@ public class Authentication extends BasePage {
     private Element loginButton = new Element(By.id("login-button"), driver);
     private Element logoutButton = new Element(By.linkText("Logout"), driver);
 
-    public void login_as(String user, String pass) {
+    public LandingPage login_as(String user, String pass) {
         openLogin.locate().click();
 
         selenium.waitForPresent(username.locator());
@@ -18,9 +18,10 @@ public class Authentication extends BasePage {
         username.locate().sendKeys(user);
         password.locate().sendKeys(pass);
         loginButton.locate().submit();
+        return new LandingPage();
     }
 
-    public void logout() {
+    public HomePage logout() {
         selenium.waitForReady(openLogin.locator());
 
         openLogin.locate().click();
@@ -28,5 +29,7 @@ public class Authentication extends BasePage {
         selenium.waitForReady(logoutButton.locator());
 
         logoutButton.locate().click();
+
+        return new HomePage();
     }
 }

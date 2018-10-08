@@ -17,18 +17,16 @@ public class BasicTest extends DriverBase {
         HomePage homePage = new HomePage();
         assertThat(homePage.siteLogoDisplayed()).isEqualTo(true);
 
-        homePage.authentication.login_as(user, pass);
+        LandingPage landingPage = homePage.authentication.login_as(user, pass);
 
-        LandingPage landingPage = new LandingPage();
         String loggedIn = landingPage.confirmLogin();
         assertThat(loggedIn).isEqualTo("You are now logged in as " + user + ".");
     }
 
     private void logout() {
         LandingPage landingPage = new LandingPage();
-        landingPage.authentication.logout();
+        HomePage homePage = landingPage.authentication.logout();
 
-        HomePage homePage = new HomePage();
         String loggedOut = homePage.confirmLogout();
         assertThat(loggedOut).isEqualTo("You have been logged out.");
     }
