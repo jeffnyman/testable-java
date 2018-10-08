@@ -2,6 +2,8 @@ package com.testerstories;
 
 import com.testerstories.config.DriverFactory;
 import com.testerstories.listeners.ScreenshotListener;
+import com.testerstories.pages.HomePage;
+import com.testerstories.pages.LandingPage;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -16,6 +18,9 @@ import java.util.List;
 public class DriverBase {
     private static List<DriverFactory> threadPool = Collections.synchronizedList(new ArrayList<DriverFactory>());
     private static ThreadLocal<DriverFactory> driverThread;
+
+    HomePage homePage;
+    LandingPage landingPage;
 
     @BeforeSuite(alwaysRun = true)
     public static void establishDriver() {
